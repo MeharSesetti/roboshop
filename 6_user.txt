@@ -1,0 +1,17 @@
+vim /etc/systemd/system/user.service
+
+[Unit]
+Description=User Service
+After=network-online.target
+
+[Service]
+User=roboshop
+Environment=REDIS_URL="redis://redis.mehartech.online:6379"
+Environment=MONGO_URL="mongodb://mongodb.mehartech.online:27017/users"
+ExecStart=/bin/node /app/server.js
+SyslogIdentifier=user
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
